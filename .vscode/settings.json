@@ -23,6 +23,8 @@
         "memory": "cpp",
         "istream": "cpp",
         "ostream": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "compare": "cpp",
+        "memory_resource": "cpp"
     }
 }
