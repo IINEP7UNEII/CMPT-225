@@ -59,6 +59,8 @@ int main()
     system("pause");
 }
 
+// Add function creates a user interactive menu in which they could input information
+// for a new member and add them to the database.
 void add(List* data)
 {
     cout << "\n\n" << "Add new element in database.";
@@ -85,6 +87,7 @@ void add(List* data)
     }
 }
 
+// Remove function allows a member to enter their credentials in a menu and delete themselves from the database
 void remove(List* data)
 {
     cout << "\n\n" << "Remove element from database.";
@@ -111,6 +114,8 @@ void remove(List* data)
     }
 }
 
+// Search function allows the user to search for a particular member in the database.
+// The function returns true if the member is found, false otherwise.
 void search(List* data)
 {
     cout << "\n\n" << "Search for element in database.";
@@ -137,6 +142,8 @@ void search(List* data)
     }
 }
 
+// Modify function allows the user to search for a member and modify the credit card number 
+// for the user in the database.
 void modify(List* data)
 {
     cout << "\n\n" << "Modify credit card number for element in database.";
@@ -169,6 +176,7 @@ void modify(List* data)
     cout << "\n\nMember's credit card has been updated!";
 }
 
+// Print function prints the information of all members in the database.
 void print(List* data)
 {
     cout << "\n\n" << "Print contents of entire database.\n";
@@ -176,7 +184,8 @@ void print(List* data)
     data->printList();
 }
 
-string infoInputHandle() //handle input of interger for menu selection
+//InfoInputHandle function handles the input of a string for menu selection
+string infoInputHandle() 
 {
     string tempString;
     cin >> tempString;

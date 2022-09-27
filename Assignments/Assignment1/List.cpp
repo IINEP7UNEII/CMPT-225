@@ -13,10 +13,12 @@
 #include <string>
 #include "List.h"
 
+// Description: Clears all members from database
+// Precondition: Database must be constructed before calling this function
+// Postcondition: Database element count is set to zero
 void List::clear()
 {
-    List::~List();
-    List();
+    elementCount = 0;
 }
 
 // Default constructor
