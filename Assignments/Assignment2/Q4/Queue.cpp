@@ -15,12 +15,20 @@ using std::cout;
 using std::endl;
 
 // Description: Constructor
-Queue::Queue() {}
+Queue::Queue()
+{
+    elements = new int[INITIAL_CAPACITY];
+}
 
 // Description: Inserts element x at the back of Queue
 // Time Efficiency: O(1)
 void Queue::enqueue(int x) 
 {
+    if (elementCount == capacity)
+    {
+        expand();
+    }
+
     elementCount++;
     elements[backindex] = x;
     backindex = (backindex + 1) % capacity;    
@@ -51,3 +59,28 @@ bool Queue::isEmpty() const
 {
     return elementCount == 0;
 }
+
+Queue::~Queue()
+{
+    delete[] elements;
+}
+
+void Queue::expand()
+{
+    unsigned int newCap = capacity * 2;
+    int* copy = new int[newCap];
+
+    for (int count = 0; count < elementCount; ++count) 
+    {
+        int index = (frontindex + count) % capacity;
+        copy[count] = elements[index];
+    }
+
+    frontindex = 0; //maybe problem
+    backindex = elementCount - 1; //maybe problem
+    delete[] elements;
+    elements = copy;
+    capacity = newCap;
+}
+
+// continue 5, 6 review 4

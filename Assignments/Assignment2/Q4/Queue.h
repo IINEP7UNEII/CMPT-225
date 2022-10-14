@@ -19,18 +19,16 @@ class Queue
 	
     private:
         static unsigned int const INITIAL_CAPACITY = 6; // Constant INITIAL_CAPACITY
-        int elements[INITIAL_CAPACITY];                 // To do: replace this by int * elements -> Question 4.a)
+        int* elements;               // To do: replace this by int * elements -> Question 4.a)
 
         unsigned int elementCount = 0;                  // Number of elements in the Queue - if you need it!
         unsigned int capacity = INITIAL_CAPACITY;       // Actual capacity of the data structure (number of cells in the array)
         unsigned int frontindex = 0;                    // Index of front element (next dequeued/peeked element)
         unsigned int backindex = 0;                     // Index of where the next element will be enqueued                     
-
 /* You can add private methods. */
 
-
     public:
- 
+
 /* You cannot remove/modify the public methods below. 
    This also applies to their documentation. 
    However, you can add public methods if you need them 
@@ -56,6 +54,9 @@ class Queue
         // Description: Returns true if and only if Queue empty
         // Time Efficiency: O(1)
         bool isEmpty() const;
-        
+
+        // Description: Expands the capacity of the queue by 2 and realocates elements in the queue
+        // Time Efficiency: O(n)
+        void expand();
 };
 #endif
