@@ -5,21 +5,25 @@
  *              Including the method implementations within the 
  *              header file is one way to create a template class.
  *
- * Author:
- * Date:
+ * Author: Daniel Tolsky
+ * Date: 14/10/2022
  */
 
 /* Please, refer to Question 1 for Stack method documentation. */
 
 template <class T>
-class Stack {
-    class Node {
+class Stack 
+{
+    class Node 
+    {
         public: 
             T data;
             Node *next;
     };
+
     private:
         Node* head;
+
     public:
         Stack();
         ~Stack();
@@ -36,13 +40,15 @@ class Stack {
 
 
 template <class T> 
-Stack<T>::Stack() {
+Stack<T>::Stack() 
+{
     head = NULL;
 }
 
 
 template <class T> 
-void Stack<T>::push(T x) {
+void Stack<T>::push(T x) 
+{
     Node *newhead = new Node;
     newhead->data = x;
     newhead->next = head;
@@ -51,7 +57,8 @@ void Stack<T>::push(T x) {
 
 
 template <class T> 
-T Stack<T>::pop() {
+T Stack<T>::pop() 
+{
     T ret = head->data;
     Node *old_head = head;
     head = head->next;
@@ -61,25 +68,27 @@ T Stack<T>::pop() {
 
 
 template <class T> 
-T Stack<T>::peek() {
+T Stack<T>::peek() 
+{
     return head->data;
 }
 
 
 template <class T> 
-bool Stack<T>::isEmpty() {
+bool Stack<T>::isEmpty() 
+{
     return (head == NULL);
 }
 
 
 template <class T> 
-Stack<T>::~Stack() {
+Stack<T>::~Stack() 
+{
     Node *p = head;
-    while (p != NULL) {
+    while (p != NULL) 
+    {
         head = head->next;
         delete p;
         p = head;
     }
 }
-
-

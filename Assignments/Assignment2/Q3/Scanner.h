@@ -5,8 +5,8 @@
  *              Given an input stream, will return a sequence
  *              of Tokens via successive calls to .getnext();
  *
- * Author:
- * Date:
+ * Author: Daniel Tolsky
+ * Date: 14/10/2022
  */
  
 #ifndef SCANNER_H_
@@ -33,7 +33,8 @@ TokenType ;
 //---------//
 //  Token  //
 //---------//
-class Token {
+class Token 
+{
     public:
         TokenType tt;
         string text;
@@ -47,7 +48,8 @@ ostream &operator<<(ostream &lhs, Token &rhs);
 
 // Description: Token scanner.  Given an input stream, will return a sequence
 //       of Tokens via successive calls to .getnext();
-class Scanner {
+class Scanner 
+{
     private:
         int line;
         istream *str;

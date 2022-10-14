@@ -5,22 +5,23 @@
  *              Given an input stream, will return a sequence
  *              of Tokens via successive calls to .getnext();
  *
- * Author:
- * Date:
+ * Author: Daniel Tolsky
+ * Date: 14/10/2022
  */
  
 #include "Scanner.h"
 
-
 // Description:  Util:  string + char
-string operator+(string &lhs, char &rhs) {
+string operator+(string &lhs, char &rhs) 
+{
     char c[2]; c[0] = rhs; c[1] = 0;
     return lhs+c;
 }
 
 
 // Description:  Display a Token
-ostream &operator<<(ostream &os, Token &rhs) {
+ostream &operator<<(ostream &os, Token &rhs) 
+{
     if (rhs.tt == eof) os << "eof";
     else if (rhs.tt == errtok) os << "err";
     else if (rhs.tt == integer) os << rhs.val;
@@ -31,7 +32,8 @@ ostream &operator<<(ostream &os, Token &rhs) {
 
 
 // Description:  Constructor
-Scanner::Scanner(istream &str) {
+Scanner::Scanner(istream &str) 
+{
     this->str = &str;
     buf[0] = buf[1] = 0;
 }
@@ -42,13 +44,15 @@ int newl(char c) { return (c == '\n'); }
 
 
 // Description:  Return the next token
-Token Scanner::getnext() {
+Token Scanner::getnext() 
+{
     Token ret; ret.text = "";
     if (buf[0] == 0) { buf[0] = str->get(); }
 
 
     // collapse whitespace
-    while (isspace(buf[0]) || (buf[0] == 13) || (buf[0] == '\n')) {
+    while (isspace(buf[0]) || (buf[0] == 13) || (buf[0] == '\n')) 
+    {
         buf[0] = str->get(); 
         if (str->eof()) break;
     }
@@ -59,10 +63,12 @@ Token Scanner::getnext() {
 
 
     // case 2: numerical-   [0-9]+
-    if (isdigit(buf[0])) {
+    if (isdigit(buf[0])) 
+    {
         ret.tt = integer; ret.text = buf;
         buf[0] = str->get();
-        while (isdigit(buf[0])) {
+        while (isdigit(buf[0])) 
+        {
             ret.text += buf;
             buf[0] = str->get();
         }
@@ -83,5 +89,3 @@ Token Scanner::getnext() {
     else { ret.tt = errtok; buf[0] = 0; }
     return ret;
 }
-
-
