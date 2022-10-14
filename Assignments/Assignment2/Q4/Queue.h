@@ -4,15 +4,15 @@
  * Description: Array-based implementation of Queue as an ADT class
  * Class Invariant: Queue maintained in FIFO order
  *
- * Author:
- * Date:
+ * Author: Daniel Tolsky
+ * Date: 14/10/2022
  */
  
 #ifndef QUEUE_H
 #define QUEUE_H
  
-class Queue {
-
+class Queue 
+{
 /* You cannot remove/modify the data members below, 
    except for the "int elements[INITIAL_CAPACITY];". 
    However, you can add more data members.              */
@@ -59,5 +59,3 @@ class Queue {
         
 };
 #endif
-
-
