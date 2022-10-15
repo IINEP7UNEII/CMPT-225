@@ -40,6 +40,7 @@ void Queue::enqueue(int x)
 // Time Efficiency: O(1)
 void Queue::dequeue() 
 {
+    unsigned int tempCount = elementCount;
     if ((elementCount <= (capacity / 4)) && ((capacity / 4) > INITIAL_CAPACITY))
     {
         shrink();
@@ -47,6 +48,7 @@ void Queue::dequeue()
 
     elementCount--;
     frontindex = (frontindex + 1) % capacity;
+    
     return;
 } 
 
@@ -55,7 +57,7 @@ void Queue::dequeue()
 // Time Efficiency: O(1)
 int Queue::peek() const 
 {
-    return elements[frontindex];    
+    return elements[frontindex];
 } 
 
 // Description: Returns true if and only if Queue empty

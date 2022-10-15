@@ -55,6 +55,9 @@ class Queue
         // Time Efficiency: O(1)
         bool isEmpty() const;
 
+        // Description: Destructor
+        ~Queue();
+
         // Description: Expands the capacity of the queue by 2 and realocates elements in the queue
         // Time Efficiency: O(n)
         void expand();
