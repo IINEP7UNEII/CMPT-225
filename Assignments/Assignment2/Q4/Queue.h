@@ -58,5 +58,9 @@ class Queue
         // Description: Expands the capacity of the queue by 2 and realocates elements in the queue
         // Time Efficiency: O(n)
         void expand();
+
+        // Description: Shrinks the capacity of the queue by 2 and realocates elements in the queue
+        // Time Efficiency: O(n)
+        void shrink();
 };
 #endif

@@ -24,7 +24,7 @@ Queue::Queue()
 // Time Efficiency: O(1)
 void Queue::enqueue(int x) 
 {
-    if (elementCount == capacity)
+    if (elementCount >= capacity)
     {
         expand();
     }
@@ -40,6 +40,11 @@ void Queue::enqueue(int x)
 // Time Efficiency: O(1)
 void Queue::dequeue() 
 {
+    if ((elementCount <= (capacity / 4)) && ((capacity / 4) > INITIAL_CAPACITY))
+    {
+        shrink();
+    }
+
     elementCount--;
     frontindex = (frontindex + 1) % capacity;
     return;
@@ -83,4 +88,21 @@ void Queue::expand()
     capacity = newCap;
 }
 
+void Queue::shrink()
+{
+    unsigned int newCap = capacity / 2;
+    int* copy = new int[newCap];
+
+    for (int count = 0; count < elementCount; ++count) 
+    {
+        int index = (frontindex + count) % capacity;
+        copy[count] = elements[index];
+    }
+
+    frontindex = 0; //maybe problem
+    backindex = elementCount - 1; //maybe problem
+    delete[] elements;
+    elements = copy;
+    capacity = newCap;
+}
 // continue 5, 6 review 4
