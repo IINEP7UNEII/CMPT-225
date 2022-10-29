@@ -13,23 +13,21 @@
 #include "WordPair.h"
 
 
-class BSTNode {
+class BSTNode 
+{
+    public:
+        WordPair element;
+        BSTNode* left = nullptr;
+        BSTNode* right = nullptr;
 
-public:
+        // Constructors
+        BSTNode();
+        BSTNode(WordPair& element);
+        BSTNode(WordPair& element, BSTNode * theLeftSubTree, BSTNode * theRightSubTree);
 
-    WordPair element;
-    BSTNode * left = nullptr;
-    BSTNode * right = nullptr;
-
-    // Constructors
-    BSTNode();
-    BSTNode(WordPair & element);
-    BSTNode(WordPair & element, BSTNode * theLeftSubTree, BSTNode * theRightSubTree) ;
-
-    // Boolean helper functions
-    bool isLeaf() const;
-    bool hasLeft() const;
-    bool hasRight() const;
-
+        // Boolean helper functions
+        bool isLeaf() const;
+        bool hasLeft() const;
+        bool hasRight() const;
 };
 #endif

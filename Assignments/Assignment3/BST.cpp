@@ -22,19 +22,48 @@
 /* Constructors and destructor */
 
    // Default constructor
-   BST::BST() { }            
+   BST::BST() 
+   { }            
 
    // Copy constructor
-   BST::BST(BST & aBST) 
+   BST::BST(BST& aBST) 
    {
-	  // to do
+	   if (aBST.root != nullptr)
+      {
+         copyTree(aBST.root, root);
+      }
+   }
+
+   void BST::copyTree(BSTNode* origNode, BSTNode* copyNode)
+   {
+      copyNode = new BSTNode(origNode->element);
+
+      if (origNode->left)
+      {
+         copyTree(origNode->left, copyNode->left);
+      }
+
+      if (origNode->right)
+      {
+         copyTree(origNode->right, copyNode->right);
+      }
    }
 
    // Destructor 
    BST::~BST() 
    {
-      // to do
-   }                
+      deleteR(root);
+   }
+
+   void BST::deleteR(BSTNode* node)
+   {
+      if (node != nullptr)
+      {
+         deleteR(node->left);
+         deleteR(node->right);
+         delete node;
+      }
+   }
    
    
 /* Getters and setters */
@@ -55,33 +84,47 @@
    // Exception: Throws the exception "ElementAlreadyExistsException" 
    //            if "newElement" already exists in the binary search tree.
    // Time efficiency: O(log2 n)   
-   void BST::insert(WordPair & newElement) 
-   {
-      // Binary search tree is empty, so add the new element as the root
-      if (elementCount == 0) 
-      {
-         root = new BSTNode(newElement);
-         elementCount++;
-      }
-      else 
-      {
-         if ( !insertR(newElement, root) ) 
-         {
-           // cout << "BST:insert( )" << *newElement << " already in BST!" << endl; // For testing purposes
-           throw ElementAlreadyExistsException("Element already exists in the data collection.");
-         }
-      }
-      return;
-   }
+	void BST::insert(WordPair & newElement) 
+	{
+		// Binary search tree is empty, so add the new element as the root
+		if (elementCount == 0) 
+		{
+			root = new BSTNode(newElement);
+			elementCount++;
+		}
+		else 
+		{
+			if (!insertR(newElement, root)) 
+			{
+				// cout << "BST:insert( )" << *newElement << " already in BST!" << endl; // For testing purposes
+				throw ElementAlreadyExistsException("Element already exists in the data collection.");
+			}
+		}
+		return;
+	}
 
    // Description: Recursive insertion into a binary search tree.
    //              Returns true when "anElement" has been successfully inserted into the 
    //              binary search tree. Otherwise, returns false.
-   bool BST::insertR(WordPair & anElement, BSTNode * current) 
+	// Precondition: Binary search tree is not empty
+   // Time efficiency: O(log2 n) 
+   bool BST::insertR(WordPair& anElement, BSTNode* current) 
    { 
-	  // to do
+		if (anElement < current->element)
+      {
+         return insertR(anElement, current->left);
+      }
+      else if (anElement > current->element)
+      {
+         return insertR(anElement, current->right);
+      }
+		else if (current == nullptr)
+		{
+			current = new BSTNode(anElement);
+			return true;
+		}
+		return false;
    }
-
    
    // Description: Retrieves "targetElement" from the binary search tree.
    //           This is a wrapper method which calls the recursive retrieveR( ).
@@ -92,24 +135,39 @@
    //         thrown from the retrieveR(...)
    //         if "targetElement" is not in the binary search tree.
    // Time efficiency: O(log2 n)
-   WordPair& BST::retrieve(WordPair & targetElement) const 
+   WordPair& BST::retrieve(WordPair& targetElement) const 
    {
-     if (elementCount == 0)  
-        throw EmptyDataCollectionException("Binary search tree is empty.");
-	
-     WordPair& translated = retrieveR(targetElement, root);
-     return translated;
+     	if (elementCount == 0)  
+	  	{
+			throw EmptyDataCollectionException("Binary search tree is empty.");
+	  	}
+        
+		WordPair& translated = retrieveR(targetElement, root);
+		return translated;
    }
 
    // Description: Recursive retrieval from a binary search tree.
+	// Precondition: Binary search tree is not empty.
    // Exception: Throws the exception "ElementDoesNotExistException" 
    //         if "targetElement" is not found in the binary search tree.
-   WordPair& BST::retrieveR(WordPair & targetElement, BSTNode * current) const 
+	// Time efficiency: O(log2 n)
+   WordPair& BST::retrieveR(WordPair& targetElement, BSTNode* current) const 
    {
-	  // to do
+	  	if (targetElement < current->element)
+      {
+         return retrieveR(targetElement, current->left);
+      }
+      else if (targetElement > current->element)
+      {
+         return retrieveR(targetElement, current->right);
+      }
+		else if (current->element == targetElement)
+		{
+			return current->element;
+		}
+		throw ElementDoesNotExistException("Target element not foud in binary search tree");
    } 
          
-   
    // Description: Traverses the binary search tree in order.
    //           This is a wrapper method which calls the recursive traverseInOrderR( ).
    //           The action to be done on each element during the traverse is the function "visit".
@@ -119,16 +177,19 @@
    // Time efficiency: O(n)     
    void BST::traverseInOrder(void visit(WordPair &)) const 
    {
-     if (elementCount == 0)  
-       throw EmptyDataCollectionException("Binary search tree is empty.");
+     	if (elementCount == 0)
+		{
+			throw EmptyDataCollectionException("Binary search tree is empty.");
+		}
 
-     traverseInOrderR(visit, root);
-     
-     return;
+     	traverseInOrderR(visit, root);
+     	return;
    }
 
-   // Description: Recursive in order traversal of a binary search tree.   
-   void BST::traverseInOrderR(void visit(WordPair &), BSTNode* current) const 
+   // Description: Recursive in order traversal of a binary search tree.
+	// Precondition: Binary search tree is not empty.
+	// Time efficiency: O(n)
+   void BST::traverseInOrderR(void visit(WordPair &), BSTNode* current) const //finish this
    { 
-	  // to do
+	  	// to do
    }

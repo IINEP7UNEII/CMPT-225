@@ -17,34 +17,33 @@ using std::string;
 using std::ostream;
 using std::endl;
 
-class WordPair {
+class WordPair 
+{
+   private:
+      string english;
+      string translation;
+      
+   public:
+      // Constructors
+      WordPair();
+      WordPair(string english);
+      WordPair(string english, string translation);
 
-private:
-   string english;
-   string translation;
-   
-public:
-   // Constructors
-   WordPair() ;
-   WordPair(string english) ;
-   WordPair(string english, string translation) ;
+      // Getters
+      string getEnglish() const;
+      string getTranslation() const;
 
-   // Getters
-   string getEnglish() const ;
-   string getTranslation() const ;
+      // Setters
+      void setEnglish(string english);
+      void setTranslation(string translation);
 
-   // Setters
-   void setEnglish(string english) ;
-   void setTranslation(string translation) ;
+      // Overloaded Operators
+      bool operator==(const WordPair& rhs) const;
+      bool operator<(const WordPair& rhs) const;
+      bool operator>(const WordPair& rhs) const;
 
-   // Overloaded Operators
-   bool operator==(const WordPair& rhs) const;
-   bool operator<(const WordPair& rhs) const;
-   bool operator>(const WordPair& rhs) const;
-
-   // For testing purposes!
-   // Description: Prints the content of "wP".
-   friend ostream & operator<<(ostream & os, const WordPair & wP);
-
+      // For testing purposes!
+      // Description: Prints the content of "wP".
+      friend ostream & operator<<(ostream & os, const WordPair & wP);
 }; // end of WordPair.h
 #endif

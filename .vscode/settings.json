@@ -25,6 +25,7 @@
         "ostream": "cpp",
         "cmath": "cpp",
         "compare": "cpp",
-        "memory_resource": "cpp"
+        "memory_resource": "cpp",
+        "iosfwd": "cpp"
     }
 }
