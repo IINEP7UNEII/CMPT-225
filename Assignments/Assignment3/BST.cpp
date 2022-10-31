@@ -23,15 +23,15 @@
 
    // Default constructor
    BST::BST() 
-   { }            
+   { 
+      root = nullptr;
+      elementCount = 0;
+   }
 
    // Copy constructor
    BST::BST(BST& aBST) 
    {
-	   if (aBST.root != nullptr)
-      {
-         copyTree(aBST.root, root);
-      }
+      copyTree(aBST.root, root);
    }
 
    void BST::copyTree(BSTNode* origNode, BSTNode* copyNode)
@@ -42,8 +42,7 @@
       {
          copyTree(origNode->left, copyNode->left);
       }
-
-      if (origNode->right)
+      else if (origNode->right)
       {
          copyTree(origNode->right, copyNode->right);
       }
@@ -84,7 +83,7 @@
    // Exception: Throws the exception "ElementAlreadyExistsException" 
    //            if "newElement" already exists in the binary search tree.
    // Time efficiency: O(log2 n)   
-	void BST::insert(WordPair & newElement) 
+	void BST::insert(WordPair& newElement) 
 	{
 		// Binary search tree is empty, so add the new element as the root
 		if (elementCount == 0) 
@@ -99,6 +98,7 @@
 				// cout << "BST:insert( )" << *newElement << " already in BST!" << endl; // For testing purposes
 				throw ElementAlreadyExistsException("Element already exists in the data collection.");
 			}
+         ++elementCount;
 		}
 		return;
 	}
@@ -109,20 +109,39 @@
 	// Precondition: Binary search tree is not empty
    // Time efficiency: O(log2 n) 
    bool BST::insertR(WordPair& anElement, BSTNode* current) 
-   { 
-		if (anElement < current->element)
+   {
+      if(current->isLeaf())
+      {
+         if(anElement.getEnglish() < current->element.getEnglish())
+         {
+            current->left = new BSTNode(anElement);
+			   return true;
+         }
+         else if(anElement.getEnglish() > current->element.getEnglish())
+         {
+            current->right = new BSTNode(anElement);
+			   return true;
+         }
+      }
+      else if(!current->hasRight() && (anElement.getEnglish() > current->element.getEnglish()))
+      {
+         current->right = new BSTNode(anElement);
+			return true;
+      }
+      else if(!current->hasLeft() && (anElement.getEnglish() < current->element.getEnglish()))
+      {
+         current->left = new BSTNode(anElement);
+			return true;
+      }
+		else if (anElement.getEnglish() < current->element.getEnglish())
       {
          return insertR(anElement, current->left);
       }
-      else if (anElement > current->element)
+      else if (anElement.getEnglish() > current->element.getEnglish())
       {
          return insertR(anElement, current->right);
       }
-		else if (current == nullptr)
-		{
-			current = new BSTNode(anElement);
-			return true;
-		}
+
 		return false;
    }
    
@@ -153,15 +172,15 @@
 	// Time efficiency: O(log2 n)
    WordPair& BST::retrieveR(WordPair& targetElement, BSTNode* current) const 
    {
-	  	if (targetElement < current->element)
+	  	if (targetElement.getEnglish() < current->element.getEnglish() && current->hasLeft())
       {
          return retrieveR(targetElement, current->left);
       }
-      else if (targetElement > current->element)
+      else if (targetElement.getEnglish() > current->element.getEnglish() && current->hasRight())
       {
          return retrieveR(targetElement, current->right);
       }
-		else if (current->element == targetElement)
+		else if (current->element.getEnglish() == targetElement.getEnglish())
 		{
 			return current->element;
 		}
@@ -189,7 +208,21 @@
    // Description: Recursive in order traversal of a binary search tree.
 	// Precondition: Binary search tree is not empty.
 	// Time efficiency: O(n)
-   void BST::traverseInOrderR(void visit(WordPair &), BSTNode* current) const //finish this
-   { 
-	  	// to do
+   void BST::traverseInOrderR(void visit(WordPair&), BSTNode* current) const
+   {
+      if(current->hasLeft())
+      {
+         traverseInOrderR(visit, current->left);
+         visit(current->element);
+
+         if(current->hasRight())
+         {
+            traverseInOrderR(visit, current->right);
+         }
+      }
+      else if(current->hasRight())
+      {
+         visit(current->element);
+         traverseInOrderR(visit, current->right);
+      }
    }

@@ -34,19 +34,19 @@ class BST
       // Description: Recursive insertion into a binary search tree.
       //              Returns true when "anElement" has been successfully inserted into the 
       //              binary search tree. Otherwise, returns false.
-      bool insertR(WordPair & element, BSTNode * current); 
+      bool insertR(WordPair& element, BSTNode* current); 
 
       // Description: Recursive retrieval from a binary search tree.
       // Exception: Throws the exception "ElementDoesNotExistException" 
       //            if "targetElement" is not found in the binary search tree.
-      WordPair & retrieveR(WordPair & targetElement, BSTNode * current) const;
+      WordPair & retrieveR(WordPair& targetElement, BSTNode* current) const;
 
       // Description: Recursive in order traversal of a binary search tree.   
-      void traverseInOrderR(void visit(WordPair &), BSTNode * current) const;
+      void traverseInOrderR(void visit(WordPair &), BSTNode* current) const;
 
-      void BST::copyTree(BSTNode* origNode, BSTNode* copyNode);
+      void copyTree(BSTNode* origNode, BSTNode* copyNode);
 
-      void BST::deleteR(BSTNode* node);
+      void deleteR(BSTNode* node);
 
    public:
       // You cannot change the prototype of the public methods of this class.
@@ -56,8 +56,8 @@ class BST
 
       /* Constructors and destructor */
       BST();                        // Default constructor
-      BST(BST & aBST);              // Copy constructor 
-      ~BST();                       // Destructor 
+      BST(BST& aBST);              // Copy constructor
+      ~BST();                       // Destructor
       
       /* Getters and setters */
       unsigned int getElementCount() const;
@@ -74,7 +74,7 @@ class BST
       // Exception: Throws the exception "ElementAlreadyExistsException" 
       //         if "newElement" already exists in the binary search tree.
       // Time efficiency: O(log2 n)   
-      void insert(WordPair & newElement);   
+      void insert(WordPair& newElement);   
       
       // Description: Retrieves "targetElement" from the binary search tree.
       //           This is a wrapper method which calls the recursive retrieveR( ).
@@ -85,7 +85,7 @@ class BST
       //         thrown from the retrieveR(...)
       //         if "targetElement" is not in the binary search tree.
       // Time efficiency: O(log2 n)
-      WordPair & retrieve(WordPair & targetElement) const;
+      WordPair & retrieve(WordPair& targetElement) const;
       
       // Description: Traverses the binary search tree in order.
       //           This is a wrapper method which calls the recursive traverseInOrderR( ).
@@ -94,6 +94,6 @@ class BST
       // Exception: Throws the exception "EmptyDataCollectionException" 
       //         if the binary search tree is empty.
       // Time efficiency: O(n)   
-      void traverseInOrder(void visit(WordPair &)) const;
+      void traverseInOrder(void visit(WordPair&)) const;
 }; // end BST
 #endif

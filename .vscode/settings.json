@@ -26,6 +26,7 @@
         "cmath": "cpp",
         "compare": "cpp",
         "memory_resource": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "cstring": "cpp"
     }
 }

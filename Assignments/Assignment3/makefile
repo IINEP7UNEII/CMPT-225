@@ -1,11 +1,14 @@
-all: td
+all: translate
 
-td: testDriver.o WordPair.o BST.o BSTNode.o ElementAlreadyExistsException.o ElementDoesNotExistException.o EmptyDataCollectionException.o
-	g++ -Wall -o td testDriver.o WordPair.o BST.o BSTNode.o ElementAlreadyExistsException.o ElementDoesNotExistException.o EmptyDataCollectionException.o
+translate: Translator.o WordPair.o Dictionary.o BST.o BSTNode.o ElementAlreadyExistsException.o ElementDoesNotExistException.o EmptyDataCollectionException.o
+	g++ -Wall -o translate Translator.o WordPair.o Dictionary.o BST.o BSTNode.o ElementAlreadyExistsException.o ElementDoesNotExistException.o EmptyDataCollectionException.o
+
+Translator.o: Translator.cpp
+	g++ -Wall -c Translator.cpp 
+
+Dictionary.o: Dictionary.h Dictionary.cpp
+	g++ -Wall -c Dictionary.cpp
 	
-testDriver.o: testDriver.cpp
-	g++ -Wall -c testDriver.cpp 
-		
 WordPair.o: WordPair.h WordPair.cpp
 	g++ -Wall -c WordPair.cpp
 			
@@ -25,4 +28,4 @@ EmptyDataCollectionException.o: EmptyDataCollectionException.h EmptyDataCollecti
 	g++ -Wall -c EmptyDataCollectionException.cpp
 
 clean:
-	rm -f td *.o
+	rm -f translate *.o
