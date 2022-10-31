@@ -7,7 +7,7 @@
  *
  * Class invariant: It is always a BST.
  * 
- * Author: Inspired from our textbook
+ * Author: Daniel Tolsky
  * Date of last modification: Oct. 2022
  */
 
@@ -39,7 +39,7 @@ class BST
       // Description: Recursive retrieval from a binary search tree.
       // Exception: Throws the exception "ElementDoesNotExistException" 
       //            if "targetElement" is not found in the binary search tree.
-      WordPair & retrieveR(WordPair& targetElement, BSTNode* current) const;
+      WordPair& retrieveR(WordPair& targetElement, BSTNode* current) const;
 
       // Description: Recursive in order traversal of a binary search tree.   
       void traverseInOrderR(void visit(WordPair &), BSTNode* current) const;
@@ -85,7 +85,7 @@ class BST
       //         thrown from the retrieveR(...)
       //         if "targetElement" is not in the binary search tree.
       // Time efficiency: O(log2 n)
-      WordPair & retrieve(WordPair& targetElement) const;
+      WordPair& retrieve(WordPair& targetElement) const;
       
       // Description: Traverses the binary search tree in order.
       //           This is a wrapper method which calls the recursive traverseInOrderR( ).

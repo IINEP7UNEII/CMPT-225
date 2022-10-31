@@ -1,8 +1,8 @@
 /*
  * Translator.cpp
  * 
- * Description: Drives the testing of the BST, the BSTNode, 
- *              the WordPair and all the exceptions classes. 
+ * Description: Simple translator which reads a dictionary file and 
+ *              outputs the translations with simple commands.
  *
  * Author: Daniel Tolsky
  * Last Modification Date: Oct. 2022
@@ -27,17 +27,16 @@ using std::cin;
 using std::cout;
 using std::ifstream;
 
-void display(WordPair& anElement) 
+// Displays the word and its translation
+void display(WordPair& anElement)
 {
-  cout << anElement;
+    cout << anElement;
 } 
 
-// As you discover what main() does, record your discoveries by commenting the code.
-// If you do not like this main(), feel free to write your own.
-// Remember, this is a test driver. Feel free to modify it as you wish!
+// Main function
 int main(int argc, char* argv[]) 
 {
-    BST* testing = new BST();
+    BST* dictionary = new BST();
             
     string aLine = "";
     string aWord = "";
@@ -51,8 +50,7 @@ int main(int argc, char* argv[])
     ifstream myfile (filename);
     if (myfile.is_open()) 
     {
-        cout << "Reading from a file:" << endl; 
-        while (getline(myfile, aLine)) //insert into BST
+        while (getline(myfile, aLine)) // Read from file and insert items into BST datastructure
         {
             pos = aLine.find(delimiter);
             englishW = aLine.substr(0, pos);
@@ -61,29 +59,29 @@ int main(int argc, char* argv[])
             WordPair aWordPair(englishW, translationW);
             try
             {
-                testing->insert(aWordPair);
+                dictionary->insert(aWordPair);
             }
             catch (ElementAlreadyExistsException& exception) 
             {
                 cout << exception.what() << " => " <<  aWordPair.getEnglish() << ":" << aWordPair.getTranslation() << endl;
             }
         }
-        myfile.close();
+        myfile.close(); // End reading of file and close file
 
-        // If user entered "Display" at the command line ...
-        if ((argc > 1) && (strcmp(argv[1], "Display") == 0)) 
+        // If user entered "display" at the command line display all contents of dictionary with translations
+        if ((argc > 1) && (strcmp(argv[1], "display") == 0)) 
         {
-            testing->traverseInOrder(display);
+            dictionary->traverseInOrder(display);
         }
-        else if (argc == 1) 
+        else if (argc == 1) // Otherwise, look for words enetered in command line
         {
             // while user has not entered CTRL+D
-            while (getline(cin, aWord)) 
+            while (getline(cin, aWord)) // Read command line words and display their relative translations
             {   
                 WordPair aWordPair(aWord);
                 try 
                 {
-                    translated = testing->retrieve(aWordPair);
+                    translated = dictionary->retrieve(aWordPair);
                     cout << translated.getEnglish() << ":" << translated.getTranslation() << endl;
                 }
                 catch (ElementDoesNotExistException& exception) 
@@ -93,10 +91,11 @@ int main(int argc, char* argv[])
             }
         }
     }
-    else
+    else // If file cannot be opened
     {
-    cout << "Unable to open file"; 
+        cout << "Unable to open file"; 
     }
-        
+
     system("pause");
+    return 0;
 }

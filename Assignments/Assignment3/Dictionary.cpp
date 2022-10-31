@@ -22,6 +22,9 @@ Dictionary::~Dictionary() // Destructor
 }
 
 // Dictionary operations:
+
+// Description: Returns the number of elements currently stored in the binary search tree.   
+// Time efficiency: O(1)
 unsigned int Dictionary::getElementCount() const
 {
     return keyValuePairs->getElementCount();
@@ -31,6 +34,7 @@ unsigned int Dictionary::getElementCount() const
 // Precondition: "newElement" does not already exist in the Dictionary.
 //               This is to say: no duplication allowed.
 // Exception: Throws ElementAlreadyExistsException if "newElement" already exists in the Dictionary.
+// Time efficiency: O(log2 n)   
 void Dictionary::put(WordPair& newElement)
 {
     keyValuePairs->insert(newElement);
@@ -40,14 +44,17 @@ void Dictionary::put(WordPair& newElement)
 // Precondition: Dictionary is not empty.
 // Exception: Throws ElementDoesNotExistException if the key is not found in the Dictionary.
 // Exception: Throws EmptyDataCollectionException if the Dictionary is empty.
+// Time efficiency: O(log2 n)
 WordPair& Dictionary::get(WordPair& targetElement) const
 {
     return keyValuePairs->retrieve(targetElement);
 }
 
 // Description: Prints the content of the Dictionary.
+// Precondition: Dictionary is not empty.
+// Exception: Throws EmptyDataCollectionException if the Dictionary is empty.
+// Time efficiency: O(n)  
 void Dictionary::displayContent(void visit(WordPair&)) const
 {
-    cout << "\n\n";
-    keyValuePairs->traverseInOrder(visit); //gigure our printing
+    keyValuePairs->traverseInOrder(visit);
 }

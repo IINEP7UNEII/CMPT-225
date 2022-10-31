@@ -7,7 +7,7 @@
  *
  * Class invariant: It is always a BST.
  * 
- * Author: Inspired from our textbook
+ * Author: Daniel Tolsky
  * Date of last modification: Oct. 2022
  */
  
@@ -34,6 +34,7 @@
       copyTree(aBST.root, root);
    }
 
+   // Copy constructor recursive helper method
    void BST::copyTree(BSTNode* origNode, BSTNode* copyNode)
    {
       copyNode = new BSTNode(origNode->element);
@@ -54,6 +55,7 @@
       deleteR(root);
    }
 
+   // Destructor recursive helper method
    void BST::deleteR(BSTNode* node)
    {
       if (node != nullptr)
@@ -95,7 +97,6 @@
 		{
 			if (!insertR(newElement, root)) 
 			{
-				// cout << "BST:insert( )" << *newElement << " already in BST!" << endl; // For testing purposes
 				throw ElementAlreadyExistsException("Element already exists in the data collection.");
 			}
          ++elementCount;
