@@ -1,20 +1,33 @@
-#include <queue>
-using namespace std;
+/*
+* Queue.h
+*
+* Description: Queue ADT class with several simple public interface functions.
+* Author: Daniel Tolsky
+* Date: Last modified: Nov. 2022
+*/ 
 
-/******* Start of Queue Public Interface *******/
+#ifndef QUEUE_H
+#define QUEUE_H
+
+#include <queue>
+#include "Event.h"
+#include "EmptyDataCollectionException.h"
+
 // Class Invariant:  FIFO or LILO order
-template <typename ElementType>
+template <class ElementType>
 class Queue
 {
     private:
-        queue <ElementType> data;
+        std::queue <ElementType> data;
 
     public:
         // Default constructor
         Queue();
 
         // Copy constructor
-        Queue(Queue& oldQueue);
+        Queue(const Queue&);
+
+        /******* Start of Queue Public Interface *******/
 
         // Description: Returns true if this Queue is empty, otherwise false.
         // Postcondition: This Queue is unchanged by this operation.
@@ -42,7 +55,9 @@ class Queue
         // Time Efficiency: O(1)
         ElementType& peek() const;
 
+        /******* End of Queue Public Interface *******/
+
         // Destructor
-        ~Queue();
+        virtual ~Queue();
 };
-/******* End of Queue Public Interface *******/
+#endif
