@@ -71,7 +71,7 @@
         // Postcondition: This Binary Heap is unchanged.
         // Exceptions: Throws EmptyDataCollectionException if this Binary Heap is empty.
         // Time Efficiency: O(1) 
-        ElementType & retrieve() const;
+        ElementType& retrieve() const;
 
         /******* End of Binary Heap Public Interface *******/
         

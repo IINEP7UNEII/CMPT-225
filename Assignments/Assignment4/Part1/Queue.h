@@ -10,7 +10,6 @@
 #define QUEUE_H
 
 #include <queue>
-#include "Event.h"
 #include "EmptyDataCollectionException.h"
 
 // Class Invariant:  FIFO or LILO order
@@ -18,7 +17,7 @@ template <class ElementType>
 class Queue
 {
     private:
-        std::queue <ElementType> data;
+        std::queue<ElementType> data;
 
     public:
         // Default constructor
@@ -58,6 +57,6 @@ class Queue
         /******* End of Queue Public Interface *******/
 
         // Destructor
-        virtual ~Queue();
+        ~Queue();
 };
 #endif

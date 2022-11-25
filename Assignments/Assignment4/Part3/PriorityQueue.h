@@ -13,7 +13,6 @@
 #include "BinaryHeap.h"
 
 template <class ElementType>
-
 class PriorityQueue
 {
     private:
@@ -22,6 +21,9 @@ class PriorityQueue
     public:
         // Default Constructor
         PriorityQueue();
+
+        // Copy constructor
+        PriorityQueue(PriorityQueue&);
 
         /******* Start of Priority Queue Public Interface *******/
 
@@ -48,7 +50,7 @@ class PriorityQueue
         // Postcondition: This Priority Queue is unchanged by this operation.
         // Exception: Throws EmptyDataCollectionException if this Priority Queue is empty.
         // Time Efficiency: O(1)
-        ElementType & peek() const;
+        ElementType& peek() const;
         
         /*******  End of Priority Queue Public Interface *******/
 

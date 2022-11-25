@@ -7,7 +7,6 @@
  * Date: Last modified: Nov. 2022
  */  
 
-#include <iostream>
 #include "BinaryHeap.h"
 using namespace std;
 

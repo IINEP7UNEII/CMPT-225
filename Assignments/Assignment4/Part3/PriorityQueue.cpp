@@ -8,16 +8,19 @@
 */ 
 
 #include "PriorityQueue.h"
-#include "BinaryHeap.h"
-#include <iostream>
+using namespace std;
 
-using std::cout;
-using std::endl;
-
-// Constructor for the Queue
+// Defualt Constructor
 template <class ElementType>
 PriorityQueue<ElementType>::PriorityQueue()
-{ }       
+{ }
+
+// Copy constructor
+template <class ElementType>
+PriorityQueue<ElementType>::PriorityQueue(PriorityQueue& other)
+{
+    heap = BinaryHeap::BinaryHeap(other.heap);
+}
 
 // Description: Returns true if this Priority Queue is empty, otherwise false.
 // Postcondition: This Priority Queue is unchanged by this operation.
@@ -38,8 +41,7 @@ bool PriorityQueue<ElementType>::isEmpty()const
 template <class ElementType>
 bool PriorityQueue<ElementType>::enqueue(ElementType& newElement)
 {
-    bool inserted = heap.insert(newElement);
-    return inserted;
+    return heap.insert(newElement);
 }
 
 // Description: Removes (but does not return) the element with the next
@@ -50,9 +52,9 @@ bool PriorityQueue<ElementType>::enqueue(ElementType& newElement)
 template <class ElementType>
 void PriorityQueue<ElementType>::dequeue()
 {
-    if(heap.isEmpty())
+    if (heap.isEmpty())
     {
-        throw EmptyDataCollectionException(" dequeue(); was called on empty Priority Queue.");
+        throw EmptyDataCollectionException("Exception in dequeue(): Data collection is empty.");
     }
     else
     {
@@ -67,11 +69,11 @@ void PriorityQueue<ElementType>::dequeue()
 // Exception: Throws EmptyDataCollectionException if this Priority Queue is empty.
 // Time Efficiency: O(1)
 template <class ElementType>
-ElementType & PriorityQueue<ElementType>::peek()const
+ElementType& PriorityQueue<ElementType>::peek()const
 {
-    if(heap.isEmpty())
+    if (heap.isEmpty())
     {
-        throw EmptyDataCollectionException(" peek(); was called on empty Priority Queue.");
+        throw EmptyDataCollectionException("Exception in peek(): Data collection is empty.");
     }
     else
     {
