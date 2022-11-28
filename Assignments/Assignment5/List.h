@@ -17,6 +17,9 @@
 // You can add #include statements if you wish.
 #include <string>
 #include "Member.h"
+#include "EmptyDataCollectionException.h"
+#include "UnableToInsertException.h"
+#include "ElementDoesNotExistException.h"
 
 class List  
 {
@@ -26,9 +29,9 @@ class List
         */
 
         Member* * hashTable = nullptr;           // HashTable - underlying data structure (array) of our Data Collection.
-                                                  // HashTable is a pointer to an array of pointers to objects of Member class
-        unsigned int elementCount = 0;            // Current number of elements stored into Data Collection.
-        unsigned int (*hashFcn)(string name);     // Pointer to hash function.
+                                                 // HashTable is a pointer to an array of pointers to objects of Member class
+        unsigned int elementCount = 0;           // Current number of elements stored into Data Collection.
+        unsigned int (*hashFcn)(string name);    // Pointer to hash function.
 
     public:
         /* 
