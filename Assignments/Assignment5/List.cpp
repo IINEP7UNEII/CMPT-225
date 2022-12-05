@@ -62,27 +62,16 @@ void List::insert(Member& newElement)
             collisions[count] = 0;  // Initialize array collisions
         }
     }
-    
-    // If hashTable full, expand ... 
 
     if (elementCount >= CAPACITY)
     {
         throw UnableToInsertException("insert(): Unable to insert new elements as list is at maximum capacity");
     }
     
-    // Call hash function using indexing key to get hash index
     unsigned int hashIndex = (*hashFcn)(newElement);
-
-    // Insert newElement in hashTable at hashIndex
     hashTable[hashIndex] = newElement;
-    
-    // Record the "hit" hence keep track of number of collisions
     collisions[hashIndex]++; 
-
-    // One more element inserted!
     elementCount++;
-    
-    return;  
 }
 
 // Description: Returns a pointer to the target element if found.
@@ -141,7 +130,7 @@ void List::printStats()
     unsigned int moreProbes = 0;
 
     cout << endl << "In the process of inserting " << this->elementCount << " elements, number of collisions ... " << endl;
-    
+
     for (unsigned int count = 0; count < CAPACITY; ++count) 
     {
         if (collisions[count] == 0) 

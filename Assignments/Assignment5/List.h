@@ -28,7 +28,7 @@ class List
     private:
         // Description: Prints an histogram.
         void histogram();
-        
+
         // Description: Prints various statistics about the hashtable.	
         void printStats();
 
@@ -44,7 +44,7 @@ class List
         * For experimentation purposes, you can add public methods to this List class.
         */
 
-        constexpr static unsigned int CAPACITY = 100;  // Size of hashTable - underlying data structure (array) of List.
+        unsigned int CAPACITY = 100;  // Size of hashTable - underlying data structure (array) of List.
         
         // Constructor
         List(unsigned int (*hFcn)(string));
