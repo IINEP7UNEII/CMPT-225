@@ -7,7 +7,7 @@
  * Class Invariant: Data collection with the following characteristics:
  *                  - Each element is unique (no duplicates).
  *
- * Author: AL
+ * Author: Daniel Tolsky
  * Date: Last modified: Dec. 2022
  */
 
@@ -16,22 +16,27 @@
 
 // You can add #include statements if you wish.
 #include <string>
+#include <iostream>
 #include "Member.h"
 #include "EmptyDataCollectionException.h"
 #include "UnableToInsertException.h"
 #include "ElementDoesNotExistException.h"
+#include "ElementAlreadyExistsException.h"
 
 class List  
 {
     private:
-        /* 
-        * For experimentation purposes, you can add private data members to this List class.
-        */
+        // Description: Prints an histogram.
+        void histogram();
+        
+        // Description: Prints various statistics about the hashtable.	
+        void printStats();
 
         Member* * hashTable = nullptr;           // HashTable - underlying data structure (array) of our Data Collection.
                                                  // HashTable is a pointer to an array of pointers to objects of Member class
         unsigned int elementCount = 0;           // Current number of elements stored into Data Collection.
         unsigned int (*hashFcn)(string name);    // Pointer to hash function.
+        unsigned int* collisions = nullptr;      // Record the number of collisions in hash funcitons.
 
     public:
         /* 
