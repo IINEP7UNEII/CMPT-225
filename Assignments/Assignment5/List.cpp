@@ -68,8 +68,8 @@ void List::insert(Member& newElement)
         throw UnableToInsertException("insert(): Unable to insert new elements as list is at maximum capacity");
     }
     
-    unsigned int hashIndex = (*hashFcn)(newElement);
-    hashTable[hashIndex] = newElement;
+    unsigned int hashIndex = (*hashFcn)(newElement.getPhone());
+    *hashTable[hashIndex] = newElement;
     collisions[hashIndex]++; 
     elementCount++;
 }
