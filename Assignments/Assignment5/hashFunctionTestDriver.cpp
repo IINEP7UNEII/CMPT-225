@@ -19,89 +19,117 @@ using std::ifstream;
 using std::string;
 using std::__cxx11::stoul;
 
-// Description: Creates "size" elements of "digitCount" digits.
+// Description: Creates "size" elements of "digitCount (12)" digits.
 //              and prints each element on its own line on stdout.
 //              Each digit is randomly selected from the range [0..9].
-void createRandomTestData(unsigned int size, unsigned int digitCount) 
+void createRandomTestData(unsigned int size) 
 {
+    const unsigned int digitCount = 12;
     for (unsigned int count = 0; count < size; ++count) 
     {
         for (unsigned int count = 0; count < digitCount; ++count) 
         {
-            cout << rand() % 10;
+            cout << rand() % digitCount;
         }
-        cout << endl;
+        cout << '\n';
     }
-}	
+}
+
+void reverseString(string& s) 
+{
+    int size = s.length();
+    for (int count = 0; count < size / 2; ++count)
+    {
+        swap(s[count], s[size - count - 1]);
+    }
+}
 
 // Hash Function #1
 // Description: Implements the type of hash function called 
 //              "modular arithmetic" in which we use the modulo 
 //              operator to produce the "hash index".
-unsigned int hashModulo(string indexingKey) 
+unsigned int hashFunc1(string indexingKey) 
 {
-    // stoul -> string-to-unsigned int function
-    // "hashCode" is an intermediate result
-    unsigned int hashCode = stoul(indexingKey);
-    return hashCode % List::CAPACITY;
+    unsigned int hash = stoul(indexingKey);
+    return hash % 100; // 100 is capacity of list
 }
 
-// For you to do:
 // Hash Function #2
 // Description: Implements the type of hash function called "Folding -> shift" 
 //              in which we partition the indexing key into parts and combine 
 //              these parts using arithmetic operation(s).
-unsigned int hashFoldShift(string indexingKey) 
+unsigned int hashFunc2(string indexingKey) 
 {
-    // Implements the Folding -> shift hash function.
-    // "hashCode" is an intermediate result
-    unsigned int hashCode = 0;
-    return hashCode;
+    string part;
+    const unsigned int fold = 3;
+    unsigned int value = 0;
+    unsigned int sum = 0;
+    unsigned int hash = 0;
+
+    while (indexingKey.length() > 0)
+    {
+        part = indexingKey.substr(0, fold);
+        value = stoi(part);
+        sum += value;
+
+        if (indexingKey.length() <= fold)
+        {
+            break;
+        }
+        indexingKey = indexingKey.substr(fold);
+    }
+    return hash % 100; // 100 is capacity of list
 }
 
-// For you to do:
 // Hash Function #3
 // Description: Implements the type of hash function called "Folding -> boundary" 
 //              in which we partition the indexing key into parts and combine 
 //              these parts using arithmetic operation(s). In this type of folding,
 //              the alternate parts (2nd, 4th ... parts) are reversed (i.e., flipped).
-unsigned int hashFoldBoundary(string indexingKey)
+unsigned int hashFunc3(string indexingKey) 
 {
-    // Implements the Folding -> boundary hash function.
-    // "hashCode" is an intermediate result
-    unsigned int hashCode = 0;
-    return hashCode;
+    string part;
+    const unsigned int fold = 3;
+    unsigned int value = 0;
+    unsigned int sum = 0;
+    unsigned int hash = 0;
+    bool reverse = false;
+
+    while (indexingKey.length() > 0)
+    {
+        part = indexingKey.substr(0, fold);
+
+        if (!reverse)
+        {
+            reverseString(part);
+        }
+        reverse = !reverse;
+        value = stoi(part);
+        sum += value;
+
+        if (indexingKey.length() <= fold)
+        {
+            break;
+        } 
+        indexingKey = indexingKey.substr(fold);
+    }
+    return hash % 100; // 100 is capacity of list
 }
 
 
 int main(int argc, char *argv[]) 
 {
-    List* testingModulo = new List(hashModulo);
+    List* testingModulo1 = new List(hashFunc1);
+    List* testingModulo2 = new List(hashFunc2);
+    List* testingModulo3 = new List(hashFunc3);
     string anIndexingKey = "";
     
-    // If you enter the command: ./hftd 100 16
-    // createRandomTestData( 100, 16 ) is called
-    // and will create 100 elements and 
-    // print each element on its own line on stdout.
-    // Each of these elements will be made of 16 digits.
-    // Each digit will be randomly selected from the range [0..9].
-    // If you enter the command: ./hftd 100 16 > dataFile_100_16.txt
-    // all of these 100 elements will be stored into 
-    // the file dataFile_100_16.txt, which can be read later.
     if (argc == 3) 
     {
-        createRandomTestData(stoul(argv[1]), stoul(argv[2]));
+        createRandomTestData(stoul(argv[1]));
     }
     else 
     {
-        // If you enter the command: ./hftd dataFile_100_16.txt
-        // each element of dataFile_100_16.txt is read as 
-        // an indexing key, which is then inserted into "testingModulo",
-        // which is an object of the List class.
-        // As part of inserting this newElement (i.e., anIndexingKey),
-        // anIndexingKey is hashed and the produced hash index is
-        // used to insert anIndexingKey into the hashTable. 
-        // See the implementation of insert(...) in List.cpp.
         if (argc == 2) 
         {
             ifstream myfile (argv[1]);
@@ -109,18 +137,17 @@ int main(int argc, char *argv[])
             {
                 while (getline(myfile, anIndexingKey)) 
                 {      
-                    // cout << "The indexing key read is " << anIndexingKey << endl; 
-                    testingModulo->insert(anIndexingKey);
+                    Member member(anIndexingKey);
+                    testingModulo1->insert(member);
+                    testingModulo2->insert(member);
+                    testingModulo3->insert(member);
                 } 
                 myfile.close();
                 
-                // Print the content of the hashTable 
-                // Print an histogram showing how well (or poorly) the hash indices
-                // are distributed over the whole hashTable.
-                cout << "***Experimenting with the modulo hash function***" << endl;
-                testingModulo->printList();
-                testingModulo->histogram();
-                testingModulo->printStats();                
+                cout << "***Experimenting with the hash functions***" << endl;
+                testingModulo1->printList();
+                testingModulo2->printList();   
+                testingModulo3->printList();             
             }
             else
             {
@@ -133,8 +160,12 @@ int main(int argc, char *argv[])
         }
     }
 
-    delete testingModulo;
-    testingModulo = nullptr;
+    delete[] testingModulo1;
+    testingModulo1 = nullptr;
+    delete[] testingModulo1;
+    testingModulo2 = nullptr;
+    delete[] testingModulo1;
+    testingModulo3 = nullptr;
     
     system("pause");
     return 0;
